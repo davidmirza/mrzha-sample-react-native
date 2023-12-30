@@ -14,6 +14,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Octicons } from '@expo/vector-icons';
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import { Ionicons } from '@expo/vector-icons';
+import DetailProducts from "../screens/DetailProducts";
 
 const StackNavigator = () => {
   const Stack = createNativeStackNavigator();
@@ -92,6 +93,11 @@ const StackNavigator = () => {
         <Stack.Screen
           name="Register"
           component={RegisterScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Detail"
+          component={DetailProducts}
           options={{ headerShown: false }}
         />
         <Stack.Screen

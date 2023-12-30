@@ -25,12 +25,13 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { SimpleLineIcons } from "@expo/vector-icons";
 import { Octicons } from "@expo/vector-icons";
 import axios from "axios";
-import { SliderBox } from "react-native-image-slider-box";
 import Swiper from "react-native-swiper";
 import { style } from "deprecated-react-native-prop-types/DeprecatedImagePropType";
+import { useNavigation } from "@react-navigation/native";
 
 LogBox.ignoreAllLogs();
 export default function HomeScreen() {
+  const Nav = useNavigation();
   const [isLoading, setLoading] = useState(true);
   const [dataCategory, setDataCategory] = useState([]);
   const [Category, setCategory] = useState();
@@ -70,7 +71,7 @@ export default function HomeScreen() {
         .get("https://fakestoreapi.com/products/categories")
         .then((response) => {
           setDataCategory(response.data);
-          console.log("data");
+          console.log("init");
         })
         .catch((err) => console.log("data error ", err))
         .finally(() => setLoading(false));
@@ -89,9 +90,7 @@ export default function HomeScreen() {
     getProducts();
   }, []);
 
-  const stCategory = async (item) => {
-    console.log("-------");
-    console.log("category");
+  const stCategory = (item) => {
     dt = filterProducts.filter((items) => items.category === item);
     setProducts(dt);
   };
@@ -175,45 +174,57 @@ export default function HomeScreen() {
           />
         </View>
         <View style={styles.pressBelow}>
-          <MaterialCommunityIcons
-            name="qrcode-scan"
-            style={[styles.iconPressBelow, styles.colorIcon]}
-          />
+          <TouchableOpacity>
+            <MaterialCommunityIcons
+              name="qrcode-scan"
+              style={[styles.iconPressBelow, styles.colorIcon]}
+            />
+          </TouchableOpacity>
           <View>
-            <View style={styles.grpPressBelow}>
-              <Fontisto
-                name="dollar"
-                style={[styles.colorIcon, styles.iconGroupPressBelow]}
-              />
-              <Text style={[styles.colorBasic, styles.lblPressBelow]}>
-                9000
+            <TouchableOpacity>
+              <View style={styles.grpPressBelow}>
+                <Fontisto
+                  name="dollar"
+                  style={[styles.colorIcon, styles.iconGroupPressBelow]}
+                />
+                <Text style={[styles.colorBasic, styles.lblPressBelow]}>
+                  9000
+                </Text>
+              </View>
+              <Text style={[styles.colorIcon, styles.lblDescription]}>
+                Top Up
               </Text>
-            </View>
-            <Text style={[styles.colorIcon, styles.lblDescription]}>
-              Top Up
-            </Text>
+            </TouchableOpacity>
           </View>
           <View>
-            <View style={styles.grpPressBelow}>
-              <FontAwesome5
-                name="coins"
-                style={[styles.colorIcon, styles.iconGroupPressBelow]}
-              />
-              <Text style={[styles.colorBasic, styles.lblPressBelow]}>200</Text>
-            </View>
-            <Text style={[styles.colorIcon, styles.lblDescription]}>Coins</Text>
+            <TouchableOpacity>
+              <View style={styles.grpPressBelow}>
+                <FontAwesome5
+                  name="coins"
+                  style={[styles.colorIcon, styles.iconGroupPressBelow]}
+                />
+                <Text style={[styles.colorBasic, styles.lblPressBelow]}>
+                  200
+                </Text>
+              </View>
+              <Text style={[styles.colorIcon, styles.lblDescription]}>
+                Coins
+              </Text>
+            </TouchableOpacity>
           </View>
           <View>
-            <View style={styles.grpPressBelow}>
-              <MaterialIcons
-                name="local-shipping"
-                style={[styles.colorIcon, styles.iconGroupPressBelow]}
-              />
-              <Text style={[styles.colorBasic, styles.lblPressBelow]}>5</Text>
-            </View>
-            <Text style={[styles.colorIcon, styles.lblDescription]}>
-              Free Shipping
-            </Text>
+            <TouchableOpacity>
+              <View style={styles.grpPressBelow}>
+                <MaterialIcons
+                  name="local-shipping"
+                  style={[styles.colorIcon, styles.iconGroupPressBelow]}
+                />
+                <Text style={[styles.colorBasic, styles.lblPressBelow]}>5</Text>
+              </View>
+              <Text style={[styles.colorIcon, styles.lblDescription]}>
+                Free Shipping
+              </Text>
+            </TouchableOpacity>
           </View>
         </View>
 
@@ -285,9 +296,17 @@ export default function HomeScreen() {
               justifyContent: "center",
             }}
           >
-            {/* .filter((item) => item.category===Category) */}
             {dataProducts?.map((item, index) => (
-              <TouchableOpacity key={item.id}>
+              <TouchableOpacity key={item.id} onPress={() => Nav.navigate("Detail",{
+                id: item.id,
+                title: item.title,
+                price: item.price,
+                description: item.description,
+                category: item.category,
+                image: item.image,
+                rating: item.rating.rate,
+                count: item.rating.count
+              })}>
                 <View
                   style={{
                     flexDirection: "column",
