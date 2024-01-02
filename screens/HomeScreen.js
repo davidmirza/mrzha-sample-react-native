@@ -92,7 +92,6 @@ export default function HomeScreen() {
     getCategories();
     getProducts();
   }, []);
-
   const stCategory = (item) => {
     dt = filterProducts.filter((items) => items.category === item);
     setProducts(dt);
@@ -278,14 +277,9 @@ export default function HomeScreen() {
               {bannerItems}
             </Swiper>
           </View>
-          <Text
-            style={{
-              height: 1,
-              borderColor: "#D0D0D0",
-              borderWidth: 1,
-              marginTop: 10,
-            }}
-          />
+          <View style={{marginTop:5}}>
+          <Text style={styles.space} />
+        </View>
           <View
             style={{
               flexDirection: "column",
@@ -438,43 +432,95 @@ export default function HomeScreen() {
         visible={showModal}
         onTouchOutside={() => setshowModal(!showModal)}
       >
-        <ModalContent style={{ width: "100%", height: 400 }}>
+        <ModalContent style={{ width: "100%", height: 320 }}>
           <View style={{ marginBottom: 8 }}>
             <Text style={{ fontSize: 16, fontWeight: "500" }}>Location</Text>
 
             <Text style={{ marginTop: 5, fontSize: 16, color: "gray" }}>
-              Select address to delivery location
+              Choose address to delivery
             </Text>
           </View>
-
-          <View style={{ flexDirection: "row", gap: 7, marginBottom: 30 }}>
-            <TouchableOpacity
-              style={{ borderWidth: 1, padding: 10, width: 200, borderRadius:10, borderColor:"#03a84d" }}
-            >
-              <View style={{ flexDirection: "row", gap: 15 }}>
-                <Text>Home</Text>
-                <Text
-                  style={{
-                    backgroundColor: "gray",
-                    padding: 2,
-                    fontSize: 12,
-                    color: "white",
-                  }}
+          <ScrollView horizontal={true}>
+            <View style={{ flexDirection: "row", gap: 7, marginBottom: 30 }}>
+              <TouchableOpacity
+                style={{
+                  borderWidth: 1,
+                  padding: 10,
+                  width: 200,
+                  borderRadius: 10,
+                  borderColor: "#03a84d",
+                }}
+              >
+                <View style={{ flexDirection: "row", gap: 15 }}>
+                  <Text>Home</Text>
+                  <Text
+                    style={{
+                      backgroundColor: "gray",
+                      padding: 2,
+                      fontSize: 12,
+                      color: "white",
+                    }}
+                  >
+                    Main address
+                  </Text>
+                </View>
+                <View style={{ flexDirection: "column", marginTop: 5 }}>
+                  <Text style={[{ fontWeight: "700" }, styles.listLoc]}>
+                    John Doe
+                  </Text>
+                  <Text>+62 886 521 333</Text>
+                  <Text numberOfLines={2} style={styles.listLoc}>
+                    Jl Letjen South Parman Kav 62-63 Wisma Barito Pacific Tower
+                    B
+                  </Text>
+                  <Text style={styles.listLoc}>Semarang, Central Java</Text>
+                  <Text style={styles.listLoc}>Indonesia</Text>
+                </View>
+              </TouchableOpacity>
+              <View
+                style={{
+                  borderWidth: 1,
+                  padding: 10,
+                  width: 200,
+                  borderRadius: 10,
+                  borderColor: "#03a84d",
+                  alignItems: "center",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  gap: 7,
+                }}
+              >
+                <TouchableOpacity
+                  style={[
+                    {
+                      backgroundColor: "white",
+                      borderColor: "#03a84d",
+                      borderWidth: 1,
+                      height: 40,
+                      width: 40,
+                      alignItems: "center",
+                      justifyContent: "center",
+                      borderRadius: 20,
+                      elevation: 5,
+                    },
+                  ]}
+                  onPress={() => { 
+                    setshowModal(!showModal),
+                    Nav.navigate("Address")}}
                 >
-                  Main Location
-                </Text>
+                  <MaterialIcons
+                    name="chevron-right"
+                    size={28}
+                    color="#03a84d"
+                  />
+                </TouchableOpacity>
+
+                <View>
+                  <Text> Select another address </Text>
+                </View>
               </View>
-              <View style={{ flexDirection: "column", marginTop: 5 }}>
-                <Text style={[{fontWeight:"700"}, styles.listLoc]}>John Doe</Text>
-                <Text>+62 886 521 333</Text>
-                <Text numberOfLines={2} style={styles.listLoc}>
-                  Jl Letjen South Parman Kav 62-63 Wisma Barito Pacific Tower B
-                </Text>
-                <Text style={styles.listLoc}>Semarang, Central Java</Text>
-                <Text style={styles.listLoc}>Indonesia</Text>
-              </View>
-            </TouchableOpacity>
-          </View>
+            </View>
+          </ScrollView>
         </ModalContent>
       </BottomModal>
     </>
@@ -482,11 +528,18 @@ export default function HomeScreen() {
 }
 
 const styles = StyleSheet.create({
-    listLoc:{
-        fontSize:13
-    },
+  listLoc: {
+    fontSize: 13,
+  },
   banner: {
     marginTop: -60,
+  },
+  space: {
+    height: 8,
+    borderColor: "#D0D0D0",
+    backgroundColor: "#D0D0D0",
+    borderWidth: 1,
+    marginTop: 0,
   },
   bannerSection: {
     flexDirection: "column",
@@ -525,7 +578,7 @@ const styles = StyleSheet.create({
     height: "100%",
   },
   container: {
-    paddingTop: Platform.OS === "android" ? 40 : 0,
+    paddingTop: Platform.OS === "android" ? 30 : 0,
     flex: 1,
     backgroundColor: "white",
   },
