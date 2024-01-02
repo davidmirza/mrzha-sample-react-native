@@ -10,20 +10,25 @@ import { Entypo } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import ChartScreen from "../screens/ChartScreen";
 import ProfileScreen from "../screens/ProfileScreen";
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { Octicons } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { Octicons } from "@expo/vector-icons";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons } from "@expo/vector-icons";
 import DetailProducts from "../screens/DetailProducts";
 import AddressScreen from "../screens/AddressScreen";
+import { MaterialIcons } from "@expo/vector-icons";
+import ListPaymentScreen from "../screens/ListPaymentScreen";
 
 const StackNavigator = () => {
   const Stack = createNativeStackNavigator();
   const Tab = createMaterialBottomTabNavigator();
   function BottomTabs() {
     return (
-      <Tab.Navigator activeColor="#ffffff"
-      inactiveColor="#ffffff" barStyle={{ backgroundColor: '#05fa63' }}>
+      <Tab.Navigator
+        activeColor="#ffffff"
+        inactiveColor="#ffffff"
+        barStyle={{ backgroundColor: "#05fa63" }}
+      >
         <Tab.Screen
           name="Home"
           component={HomeScreen}
@@ -38,20 +43,7 @@ const StackNavigator = () => {
               ),
           }}
         />
-        <Tab.Screen
-          name="Shoping"
-          component={ChartScreen}
-          options={{
-            tabBarLabel: "Shopping",
-            headerShown: false,
-            tabBarIcon: ({ focused }) =>
-              focused ? (
-                <MaterialCommunityIcons name="shopping" size={24} color="white" />
-              ) : (
-                <MaterialCommunityIcons name="shopping-outline" size={24} color="white" />
-              ),
-          }}
-        />
+
         <Tab.Screen
           name="Profile"
           component={ProfileScreen}
@@ -68,7 +60,7 @@ const StackNavigator = () => {
         />
         <Tab.Screen
           name="Pay"
-          component={ProfileScreen}
+          component={ListPaymentScreen}
           options={{
             tabBarLabel: "Pay",
             headerShown: false,
@@ -80,13 +72,31 @@ const StackNavigator = () => {
               ),
           }}
         />
+        <Tab.Screen
+          name="Shoping"
+          component={ChartScreen}
+          options={{
+            tabBarLabel: "Transactions",
+            headerShown: false,
+            tabBarIcon: ({ focused }) =>
+              focused ? (
+                <MaterialCommunityIcons
+                  name="list-status"
+                  size={24}
+                  color="white"
+                />
+              ) : (
+                <MaterialIcons name="list" size={24} color="white" />
+              ),
+          }}
+        />
       </Tab.Navigator>
     );
   }
   return (
     <NavigationContainer>
       <Stack.Navigator>
-      <Stack.Screen
+        <Stack.Screen
           name="Main"
           component={BottomTabs}
           options={{ headerShown: false }}
@@ -107,11 +117,15 @@ const StackNavigator = () => {
           options={{ headerShown: false }}
         />
         <Stack.Screen
+          name="Payment"
+          component={ListPaymentScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
           name="Login"
           component={LoginScreen}
           options={{ headerShown: false }}
         />
-        
       </Stack.Navigator>
     </NavigationContainer>
   );

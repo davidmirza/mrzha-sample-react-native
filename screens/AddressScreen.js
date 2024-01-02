@@ -392,6 +392,7 @@ const AddressScreen = () => {
                 </View>
               </View>
               <TouchableOpacity
+              onPress={()=>  setshowModal(!showModal)}
                 style={{
                   backgroundColor: "#03a84d",
                   padding: 10,
