@@ -17,14 +17,13 @@ const LoginScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigation = useNavigation();
+  const img_ = require("../assets/dza12.png");
   return (
     <SafeAreaView style={styles.container}>
       <View>
         <Image
           style={styles.image}
-          source={{
-            uri: "https://lh3.googleusercontent.com/pw/ABLVV85L-t_5YZQzMD-QocW4LILpkRsAygYFSzP2bN7AnxPblIY1b5Hjd6pAr8SCIKlooflCHuUk5JGuyQ0baxKa6RkRHwu51mRFdGIblACEoWZW6AGhNqSXmDDR8Ja_mgEozOlTr26igr0nWfrH0zEHoLbchi6n434b-8dOAvofPAsERu2fSQl8S2xQcl93pO6NbvOf0dS7YDInz_hUPjWLI93J907BZ6cZO95pWy9gfqtmWYp8_scEm-iuDHBx34pVGaA4voLLe1Faegh2PkE8zXelZJHNBe02z-C3qOC0VCXag-2R16xNDfO8eKQdxaw18n2QGjfVGzmlbYWw02y3TiOtQjWnLClx_w1c32uY2rUc1YDNWhBJ2JzdEa7_pXbXb1xXsyjaU2ukFbLUZMNnDN8D-_5ucWMToB-7b29dWSt88kg67Ly7xw8pFi9248BOfXG8PCMyMIsEQPKsRSNjwr0Ejs5A4_5i_l3H8sHCJeERJgXcSSw6Q8F4YeQJ2d6428F-z8qTvqA4wOEkQQZkA4bwtFynHepjJYgnl8m43_mqV_yLUeQ8XM1f36rWluHXbPsMz0CBnx6tJ2hC_Mu_83YCBEJSRh144mVXMQbcon7dfhJNEYCU50s5ZjCbmuRKb9u6C73-RKI2GFOaiKcuze8UVQv2--n-RYoGiNIrCVb0i3O2je4KK5rhuwdnEkGlzBPio2aE8o1z8LCCexsy7AfN8CrdGZ_RMUzzH9jiNjTRYTcFkfz9PHPWByUbvzpW8vjZvgizmWgYijDbhEmW3_ONEuqB6FyvfdhPtal5wvy8Fm5Bi7udaEpGOzHT_j7mzUJCVSqwxdHIGErZPEpEwtbaSG2CV-NKvFgtdmQdzLom_w41WVGg5o-DQ4JNzwWCiCx4UEyf_y8VWm7dkhJuSGnk8ElE14r-WGI32cOXZodrEOCsV3KPTPu5qKiIv7BZ1r3GRE8HvZcEp1cjC8n4ox-YybLff4cDQgJkHdYxGufrsxDQ=w925-h924-s-no-gm?authuser=0",
-          }}
+          source={img_}
         />
       </View>
       <KeyboardAvoidingView>
@@ -60,6 +59,7 @@ const LoginScreen = () => {
         </View>
         <View style={{ marginTop: 50 }} />
         <Pressable
+        onPress={()=> navigation.navigate("Main")}
           style={({ pressed }) => [
             {
               backgroundColor: pressed ? "#c20679" : "#FF039D",

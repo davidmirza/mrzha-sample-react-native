@@ -13,12 +13,8 @@ import {
   Dimensions,
   LogBox,
 } from "react-native";
-import { ViewPropTypes } from "deprecated-react-native-prop-types";
 import React, { useEffect, useState } from "react";
-import { Feather } from "@expo/vector-icons";
-import { Entypo } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
-import { Ionicons } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Fontisto } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
@@ -27,23 +23,27 @@ import { SimpleLineIcons } from "@expo/vector-icons";
 import { Octicons } from "@expo/vector-icons";
 import axios from "axios";
 import Swiper from "react-native-swiper";
-import { style } from "deprecated-react-native-prop-types/DeprecatedImagePropType";
 import { useNavigation } from "@react-navigation/native";
 import { BottomModal, SlideAnimation, ModalContent } from "react-native-modals";
+import Header from "./Header";
+import Space from "./Space";
 
 LogBox.ignoreAllLogs();
 export default function HomeScreen() {
   const Nav = useNavigation();
   const [isLoading, setLoading] = useState(true);
   const [dataCategory, setDataCategory] = useState([]);
-  const [Category, setCategory] = useState();
   const [dataProducts, setProducts] = useState([]);
   const [filterProducts, setFilterProd] = useState([]);
   let dt = [];
-  let ScreenHeight = Dimensions.get("window").height;
+  let width = Dimensions.get("window").width / 2 - 35;
   const banner_1 = require("../assets/banner/BANNER1.jpg");
   const banner_2 = require("../assets/banner/BANNER2.jpg");
   const banner_3 = require("../assets/banner/BANNER3.jpg");
+  const icoJewel = require("../assets/jewel.png");
+  const icoMen = require("../assets/men.png");
+  const icoWomen = require("../assets/women.png");
+  const icoElectronic = require("../assets/electronic.png");
   const [showModal, setshowModal] = useState(false);
   const ImageSlider = [
     {
@@ -57,6 +57,24 @@ export default function HomeScreen() {
     {
       id: 3,
       name: banner_3,
+    },
+  ];
+  const Categories = [
+    {
+      name: "electronics",
+      icon: icoElectronic,
+    },
+    {
+      name: "jewelery",
+      icon: icoJewel,
+    },
+    {
+      name: "men's clothing",
+      icon: icoMen,
+    },
+    {
+      name: "women's clothing",
+      icon: icoWomen,
     },
   ];
   const bannerItems = ImageSlider.map((img) => (
@@ -96,9 +114,9 @@ export default function HomeScreen() {
     dt = filterProducts.filter((items) => items.category === item);
     setProducts(dt);
   };
-  const renderCategory = ({ item }) => {
+  const renderCategory = ({ item, index }) => {
     return (
-      <TouchableOpacity onPress={() => stCategory(item)}>
+      <TouchableOpacity key={index} onPress={() => stCategory(item.name)}>
         <View
           style={{
             marginVertical: 8,
@@ -106,17 +124,21 @@ export default function HomeScreen() {
             flexDirection: "column",
             justifyContent: "center",
             alignItems: "center",
-            borderWidth: 0,
-            paddingRight: 10,
+            borderLeftWidth: index === 0 ? 0 : 0.2,
+            paddingRight: 5,
             paddingLeft: 10,
             paddingTop: 5,
+            borderColor: "gray",
             paddingBottom: 5,
-            borderRadius: 20,
           }}
         >
-          <AntDesign name="antdesign" size={24} color="#05fa63" />
-          <Text style={{ fontSize: 14, color: "#456354", fontWeight: "300" }}>
-            {item}
+          <Image
+            source={item.icon}
+            resizeMode="contain"
+            style={{ width: 35, height: 35 }}
+          />
+          <Text style={{ fontSize: 13, color: "#456354", fontWeight: "300" }}>
+            {item.name}
           </Text>
         </View>
       </TouchableOpacity>
@@ -126,19 +148,14 @@ export default function HomeScreen() {
     <>
       <SafeAreaView style={styles.container}>
         <ScrollView>
-          <View style={styles.viewTop}>
-            <Pressable style={styles.pressTop}>
-              <Feather name="search" style={styles.icnSearch} />
-              <TextInput placeholder="Search" />
-            </Pressable>
-            <AntDesign name="shoppingcart" style={styles.icnCart} />
-            <Ionicons name="chatbox-ellipses-outline" style={styles.icnCart} />
-          </View>
+          <Header></Header>
           <View
             style={{
               backgroundColor: "#05fa63",
-              marginTop: -5,
+              marginTop: -2,
               paddingBottom: 2,
+              borderBottomWidth: 1,
+              borderBottomColor: "#f0f0f0",
             }}
           >
             <Pressable
@@ -183,8 +200,9 @@ export default function HomeScreen() {
               />
             </Pressable>
           </View>
-          <View style={styles.pressBelow}>
-            <TouchableOpacity>
+
+          <View style={[styles.pressBelow, { elevation: 1 }]}>
+            <TouchableOpacity style={{ flexDirection: "row" }}>
               <MaterialCommunityIcons
                 name="qrcode-scan"
                 style={[styles.iconPressBelow, styles.colorIcon]}
@@ -253,16 +271,14 @@ export default function HomeScreen() {
                     color: "#696b6a",
                   },
                 ]}
-              >
-                Categories
-              </Text>
+              ></Text>
             </View>
             <FlatList
               horizontal
-              data={dataCategory}
+              data={Categories}
               renderItem={renderCategory}
               keyExtractor={(item) => item}
-              style={{ backgroundColor: "#f5faf7" }}
+              style={{ backgroundColor: "#f5faf7", elevation: 1 }}
             />
           </View>
 
@@ -277,9 +293,7 @@ export default function HomeScreen() {
               {bannerItems}
             </Swiper>
           </View>
-          <View style={{marginTop:5}}>
-          <Text style={styles.space} />
-        </View>
+          <Space></Space>
           <View
             style={{
               flexDirection: "column",
@@ -320,21 +334,23 @@ export default function HomeScreen() {
                   }
                 >
                   <View
-                    style={{
-                      flexDirection: "column",
-                      padding: 2,
-                      margin: 4,
-                      borderWidth: 1,
-                      borderRadius: 5,
-                      borderColor: "#d7dbda",
-                      backgroundColor: "#ffffff",
-                    }}
+                    style={[
+                      {
+                        flexDirection: "column",
+                        padding: 2,
+                        margin: 4,
+                        backgroundColor: "white",
+                        elevation: 3,
+                        borderRadius: 5,
+                      },
+                      styles.shadowColor,
+                    ]}
                   >
                     <Pressable key={item.id} style={{ margin: 5, padding: 5 }}>
                       <TouchableOpacity>
                         <Image
                           style={{
-                            width: 130,
+                            width: width,
                             height: 130,
                             resizeMode: "center",
                           }}
@@ -493,20 +509,19 @@ export default function HomeScreen() {
                 <TouchableOpacity
                   style={[
                     {
-                      backgroundColor: "white",
-                      borderColor: "#03a84d",
-                      borderWidth: 1,
+                      borderWidth: 0,
                       height: 40,
                       width: 40,
                       alignItems: "center",
                       justifyContent: "center",
                       borderRadius: 20,
-                      elevation: 5,
+                      elevation: 2,
                     },
+                    styles.shadowColor,
                   ]}
-                  onPress={() => { 
-                    setshowModal(!showModal),
-                    Nav.navigate("Address")}}
+                  onPress={() => {
+                    setshowModal(!showModal), Nav.navigate("Address");
+                  }}
                 >
                   <MaterialIcons
                     name="chevron-right"
@@ -528,18 +543,19 @@ export default function HomeScreen() {
 }
 
 const styles = StyleSheet.create({
+  shadowColor: {
+    borderColor: "#03a84d",
+    borderWidth: 0.1,
+    backgroundColor: "white",
+    shadowColor: "black",
+    borderBottomColor: "#d9dedb",
+    borderBottomWidth: 1,
+  },
   listLoc: {
     fontSize: 13,
   },
   banner: {
     marginTop: -60,
-  },
-  space: {
-    height: 8,
-    borderColor: "#D0D0D0",
-    backgroundColor: "#D0D0D0",
-    borderWidth: 1,
-    marginTop: 0,
   },
   bannerSection: {
     flexDirection: "column",
@@ -613,23 +629,7 @@ const styles = StyleSheet.create({
   iconGroupPressBelow: {
     fontSize: 16,
   },
-  icnCart: {
-    marginLeft: 5,
-    marginRight: 5,
-    color: "white",
-    fontSize: 23,
-  },
-  icnSearch: {
-    paddingLeft: 5,
-    fontSize: 22,
-    color: "darkgray",
-  },
-  viewTop: {
-    padding: 10,
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "#05fa63",
-  },
+
   pressBelow: {
     marginTop: 5,
     flexDirection: "row",
@@ -645,21 +645,5 @@ const styles = StyleSheet.create({
   iconPressBelow: {
     marginTop: 4,
     fontSize: 24,
-  },
-  shadowProp: {
-    shadowColor: "#000000",
-    shadowOffset: { width: 5, height: 9 },
-    shadowOpacity: 1,
-    shadowRadius: 5,
-  },
-  pressTop: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginHorizontal: 8,
-    gap: 10,
-    backgroundColor: "white",
-    borderRadius: 5,
-    height: 40,
-    flex: 1,
   },
 });

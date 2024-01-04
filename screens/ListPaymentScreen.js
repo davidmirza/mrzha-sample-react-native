@@ -9,17 +9,11 @@ import {
   Pressable,
 } from "react-native";
 import React from "react";
-import { useNavigation } from "@react-navigation/native";
 import { Feather } from "@expo/vector-icons";
-import { AntDesign } from "@expo/vector-icons";
-import { Ionicons } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
-import { SimpleLineIcons } from "@expo/vector-icons";
-import { FontAwesome5 } from "@expo/vector-icons";
 
 const ListPaymentScreen = () => {
-  const nav = useNavigation();
   const today = new Date();
   const date2 = () => {
     const day_ = new Date();
@@ -50,16 +44,18 @@ const ListPaymentScreen = () => {
             marginEnd: "5%",
           }}
         ></View>
+
         <View
-          style={{
-            marginTop: 15,
-            borderColor: "#06c25a",
-            borderWidth: 1,
-            marginStart: 10,
-            marginEnd: 10,
-            borderRadius: 5,
-            padding: 5,
-          }}
+          style={[
+            {
+              marginTop: 15,
+              marginStart: 10,
+              marginEnd: 10,
+              borderRadius: 5,
+              padding: 5,
+            },
+            styles.shadow,
+          ]}
         >
           <View
             style={{ flexDirection: "row", justifyContent: "space-between" }}
@@ -224,8 +220,18 @@ const ListPaymentScreen = () => {
               <Text style={{ fontSize: 12 }}>Total </Text>
               <Text style={{ fontSize: 14, fontWeight: "600" }}>$150.50</Text>
             </View>
-            <TouchableOpacity style={{borderWidth:1, borderColor:"#06c25a", borderRadius:5, padding:5, justifyContent:"center"}}>
-                <Text style={{fontSize:13,fontWeight:"970"}}>Detail Payment</Text>
+            <TouchableOpacity
+              style={{
+                borderWidth: 1,
+                borderColor: "#06c25a",
+                borderRadius: 5,
+                padding: 5,
+                justifyContent: "center",
+              }}
+            >
+              <Text style={{ fontSize: 13, fontWeight: "970" }}>
+                Detail Payment
+              </Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -241,6 +247,17 @@ const styles = StyleSheet.create({
     paddingTop: Platform.OS === "android" ? 30 : 0,
     flex: 1,
     backgroundColor: "white",
+  },
+  shadow: {
+    borderColor: "#03a84d",
+    borderWidth: 0.1,
+    backgroundColor: "white",
+    shadowColor: "black",
+    shadowRadius: 30,
+    elevation: 3,
+    marginBottom: 10,
+    borderBottomColor: "#d9dedb",
+    borderBottomWidth: 2,
   },
   icn: {
     paddingLeft: 5,

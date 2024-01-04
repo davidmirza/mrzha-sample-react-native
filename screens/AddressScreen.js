@@ -15,10 +15,9 @@ import { Feather } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import { SimpleLineIcons } from "@expo/vector-icons";
 import { BottomModal, SlideAnimation, ModalContent } from "react-native-modals";
-import { MaterialIcons } from "@expo/vector-icons";
-import { height } from "deprecated-react-native-prop-types/DeprecatedImagePropType";
 import Checkbox from "expo-checkbox";
 import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
+import Space from "./Space";
 
 const AddressScreen = () => {
   const nav = useNavigation();
@@ -27,19 +26,19 @@ const AddressScreen = () => {
   const [isAgree, setAgree] = useState(false);
   const { width } = Dimensions.get("window");
   const height = (width * 100) / 100 / 2;
-  const [ mapRegion, setRegion ] = useState( null )
+  const [mapRegion, setRegion] = useState(null);
   const [mapMarker, setmapMarker] = useState({
     latitude: -7.004182,
     longitude: 110.434038,
     latitudeDelta: 0.1,
     longitudeDelta: 0.1,
   });
-  const initRegion ={
+  const initRegion = {
     latitude: -7.005145,
     longitude: 110.438126,
     latitudeDelta: 0.1,
     longitudeDelta: 0.1,
-  }
+  };
   return (
     <>
       <SafeAreaView style={styles.container}>
@@ -75,27 +74,26 @@ const AddressScreen = () => {
               <TextInput placeholder="Search Address" />
             </Pressable>
           </View>
-          <View>
-            <Text style={styles.space} />
-          </View>
+          <Space></Space>
 
           <View
             style={{
               flexDirection: "column",
               gap: 8,
               alignItems: "center",
-              marginTop: 5,
+              marginTop: 10,
               marginBottom: 5,
             }}
           >
             <TouchableOpacity
-              style={{
-                borderWidth: 1,
-                padding: 10,
-                width: "90%",
-                borderRadius: 10,
-                borderColor: "#03a84d",
-              }}
+              style={[
+                {
+                  padding: 10,
+                  width: "90%",
+                  borderRadius: 10,
+                },
+                styles.shadow,
+              ]}
             >
               <View
                 style={{
@@ -143,13 +141,14 @@ const AddressScreen = () => {
             </TouchableOpacity>
 
             <TouchableOpacity
-              style={{
-                borderWidth: 1,
-                padding: 10,
-                width: "90%",
-                borderRadius: 10,
-                borderColor: "#03a84d",
-              }}
+              style={[
+                {
+                  padding: 10,
+                  width: "90%",
+                  borderRadius: 10,
+                },
+                styles.shadow,
+              ]}
             >
               <View
                 style={{
@@ -158,7 +157,7 @@ const AddressScreen = () => {
                 }}
               >
                 <View style={{ flexDirection: "row", gap: 15 }}>
-                  <Text>Office</Text>
+                  <Text>Office 1 </Text>
                 </View>
                 <AntDesign name="edit" size={24} color="#03a84d" />
               </View>
@@ -186,13 +185,14 @@ const AddressScreen = () => {
             </TouchableOpacity>
 
             <TouchableOpacity
-              style={{
-                borderWidth: 1,
-                padding: 10,
-                width: "90%",
-                borderRadius: 10,
-                borderColor: "#03a84d",
-              }}
+              style={[
+                {
+                  padding: 10,
+                  width: "90%",
+                  borderRadius: 10,
+                },
+                styles.shadow,
+              ]}
             >
               <View
                 style={{
@@ -201,7 +201,7 @@ const AddressScreen = () => {
                 }}
               >
                 <View style={{ flexDirection: "row", gap: 15 }}>
-                  <Text>Office Address</Text>
+                  <Text>Office 2</Text>
                 </View>
                 <AntDesign name="edit" size={24} color="#03a84d" />
               </View>
@@ -229,13 +229,14 @@ const AddressScreen = () => {
             </TouchableOpacity>
 
             <TouchableOpacity
-              style={{
-                borderWidth: 1,
-                padding: 10,
-                width: "90%",
-                borderRadius: 10,
-                borderColor: "#03a84d",
-              }}
+              style={[
+                {
+                  padding: 10,
+                  width: "90%",
+                  borderRadius: 10,
+                },
+                styles.shadow,
+              ]}
             >
               <View
                 style={{
@@ -306,7 +307,7 @@ const AddressScreen = () => {
                 Detail Address
               </Text>
               <View style={{ flex: 1, width: "100%" }}>
-                 <MapView
+                <MapView
                   style={{
                     width: width,
                     height: height,
@@ -316,10 +317,7 @@ const AddressScreen = () => {
                   showsMyLocationButton={true}
                   showsUserLocation={true}
                 >
-                 
-                    <Marker coordinate={mapMarker} title="Dzavira" />
-                   
-
+                  <Marker coordinate={mapMarker} title="Dzavira" />
                 </MapView>
               </View>
 
@@ -392,7 +390,7 @@ const AddressScreen = () => {
                 </View>
               </View>
               <TouchableOpacity
-              onPress={()=>  setshowModal(!showModal)}
+                onPress={() => setshowModal(!showModal)}
                 style={{
                   backgroundColor: "#03a84d",
                   padding: 10,
@@ -419,6 +417,17 @@ const styles = StyleSheet.create({
   checkbox: {
     margin: 8,
   },
+  shadow: {
+    borderColor: "#03a84d",
+    borderWidth: 0.1,
+    backgroundColor: "white",
+    shadowColor: "black",
+    shadowRadius: 30,
+    elevation: 3,
+    marginBottom: 10,
+    borderBottomColor: "#d9dedb",
+    borderBottomWidth: 2,
+  },
   lblInputAddress: {
     marginStart: 10,
     borderBottomColor: "gray",
@@ -434,13 +443,7 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 23,
   },
-  space: {
-    height: 8,
-    borderColor: "#D0D0D0",
-    backgroundColor: "#D0D0D0",
-    borderWidth: 1,
-    marginTop: 0,
-  },
+
   icn: {
     paddingLeft: 5,
     fontSize: 22,

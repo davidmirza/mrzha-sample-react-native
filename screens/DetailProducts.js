@@ -441,8 +441,8 @@ const DetailProducts = () => {
             flexDirection: "row",
             justifyContent: "space-between",
             marginBottom: 5,
-            marginLeft:25,
-            marginRight:25
+            marginLeft: 25,
+            marginRight: 25,
           }}
         >
           <View
@@ -463,7 +463,8 @@ const DetailProducts = () => {
             </Text>
             <MaterialCommunityIcons name="bike-fast" size={14} color="black" />
             <Text style={{ backgroundColor: "#c7c9c5", marginStart: 5 }}>
-              {" "}COD{" "}
+              {" "}
+              COD{" "}
             </Text>
           </View>
           <View>
